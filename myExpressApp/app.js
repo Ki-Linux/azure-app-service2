@@ -11,7 +11,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
-//kokokara
+//本文ここから
 app.use(cors());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +35,7 @@ connection.connect((err) => {
   console.log('success');
 });
 
-
+//ブラウザへ送る
 app.get('/', (req, res) => {
   connection.query(
     'SELECT totalNumber FROM beginner',
@@ -59,7 +59,7 @@ app.get('/adAPI', (req, res) => {
       res.send(results); 
     });
 });
-
+//データベースへ
 app.post('/post/b', (req, res) => {
   connection.query(
     'INSERT INTO beginner (totalNumber) VALUES (?)',
@@ -108,7 +108,9 @@ app.post('/post/send', (req, res) => {
   }   
   sgMail.send(msg);
   }); 
-  //kokomade
+//本文ここまで
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
