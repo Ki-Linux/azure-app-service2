@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //mysql
 const connection = mysql.createConnection({
-  host: 'ser0616.mysql.database.azure.com',
-  user: 'myser0616@ser0616',
+  host: 'servicenewquiz.mysql.database.azure.com',
+  user: 'seima@servicenewquiz',
   password: 'Seikou34616',
   database: 'quiz',
   port: 3306,
