@@ -3,6 +3,5 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/914013e7-efba-44a3-a87d-7bee706baeff/resourceGroups/AzureNewGroup/providers/Microsoft.Web/sites/servicenewquiz",
     "appService.deploySubpath": "."
 }
