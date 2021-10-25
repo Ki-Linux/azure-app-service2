@@ -100,7 +100,7 @@ app.post('/post/send', (req, res) => {
   sgMail.setApiKey('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');
   
   const msg = {
-    to: 'hou912@someima.com',
+    to: 'hou007@hkoruy.sakura.ne.jp',
     from: 'aboutQuiz@ezweb.ne.jp',
     subject: 'クイズのお問い合わせ',
     text: req.body.postText + " " + req.body.postAddress,
