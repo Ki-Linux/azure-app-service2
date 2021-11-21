@@ -26,10 +26,10 @@ const connection = mysql.createConnection({
   ssl: true
 });
 
-//connection
+//connection  
 connection.connect((err) => {
   if (err) {
-    console.log('error connecting: ' + err.stack);
+    console.log('error  connecting: ' + err.stack);
     return;
   }
   console.log('success');
