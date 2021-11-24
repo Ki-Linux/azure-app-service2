@@ -65,7 +65,7 @@ app.post('/post/b', (req, res) => {
     'INSERT INTO beginner (totalNumber) VALUES (?)',
     [req.body.postNumber],
     (error, results) => {
-      console.log(results + "yes");
+      console.log(results + "yes and");
       res.redirect('/');
     }
   ); 
