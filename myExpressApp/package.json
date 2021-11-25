@@ -16,7 +16,7 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.13",
+    "nodemon": "^2.0.15",
     "pug": "2.0.0-beta11"
   }
 }
