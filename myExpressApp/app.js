@@ -103,7 +103,7 @@ app.post('/post/namePost', (req, res) => {
     [[req.body.postName], [req.body.postPassword]],
     (error, results) => {
       console.log(results);
-      
+      //res.redirect('/');
     }
   )
 })
