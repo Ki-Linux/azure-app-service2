@@ -59,6 +59,7 @@ app.get('/adAPI', (req, res) => {
       res.send(results); 
     });
 });
+
 //データベースへ
 app.post('/post/b', (req, res) => {
   connection.query(
@@ -97,16 +98,47 @@ app.post('/post/ad', (req, res) => {
 //新規登録
 
 //データベースへ
-app.post('/post/namePost', (req, res) => {
+let sayCannot = false;
+
+app.post('/post/namePost', 
+(req, res, next) => {
+  connection.query(
+    'SELECT * FROM login WHERE name = ?',
+    [req.body.postName],
+    (error, results) => {
+      if(results.length > 0) {
+
+        console.log('judge to say "No its same"');
+        sayCannot = true;
+      } else {
+
+        console.log('judge its to next');
+        next();
+      }
+    }
+  )
+},
+(req, res) => {
   connection.query(
     'INSERT INTO login (name, password) VALUES (?, ?)',
-    [[req.body.postName], [req.body.postPassword]],
+    [[req.body.postName],[req.body.postPassword]],
     (error, results) => {
       console.log(results);
 
     }
   )
 })
+
+
+//ブラウザへ送る
+app.get('/sendTrue', (req, res) => {
+  if(sayCannot) {
+    console.log('yes can send');
+    res.send("このユーザーネームはすでに登録してあります。");
+    sayCannot = false;
+  }
+})
+
  
 //sendgrid 
 app.post('/post/send', (req, res) => {
