@@ -92,6 +92,21 @@ app.post('/post/ad', (req, res) => {
     }
   ); 
 });
+
+
+//新規登録
+
+//データベースへ
+app.post('/post/namePost', (req, res) => {
+  connection.query(
+    'INSERT INTO login (name, password) VALUES (?, ?)',
+    [[req.body.postName], [req.body.postPassword]],
+    (error, results) => {
+      console.log(results);
+      
+    }
+  )
+})
  
 //sendgrid 
 app.post('/post/send', (req, res) => {
