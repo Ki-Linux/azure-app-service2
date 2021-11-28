@@ -144,6 +144,8 @@ app.get('/sendTrue', (req, res) => {
 //ログイン
 
 //ログイン審査
+let ableSend = false;
+
 app.post('/loginTwo', (req, res) => {
   connection.query(
     'SELECT * FROM login WHERE name = ?',
@@ -151,6 +153,7 @@ app.post('/loginTwo', (req, res) => {
     (error, results) => {
       if(results.length > 0) {
         console.log('succcess yes!');
+        ableSend = true;
       } else {
         console.log('not success');
       }
@@ -159,6 +162,15 @@ app.post('/loginTwo', (req, res) => {
   )
 
   console.log(req.body.loginName);
+})
+
+
+app.get('/ableSendYes', (req, res) => {
+  if(ableSend) {
+    console.log('canSendAble');
+    res.send(true);
+    ableSend = false;
+  }
 })
 
  
