@@ -139,6 +139,28 @@ app.get('/sendTrue', (req, res) => {
   }
 })
 
+
+
+//ログイン
+
+//ログイン審査
+app.post('/loginTwo', (req, res) => {
+  connection.query(
+    'SELECT * FROM login WHERE name = ?',
+    [req.body.loginName],
+    (error, results) => {
+      if(results.length > 0) {
+        console.log('succcess yes!');
+      } else {
+        console.log('not success');
+      }
+    }
+
+  )
+
+  console.log(req.body.loginName);
+})
+
  
 //sendgrid 
 app.post('/post/send', (req, res) => {
