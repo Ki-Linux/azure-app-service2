@@ -159,7 +159,7 @@ app.post('/loginTwo', (req, res) => {
       if(results.length > 0) {
 
         const password = req.body.loginPassword;
-        const hash = [results[0].password];
+        const hash = results[0].password;
 
         bcrypt.compare(password, hash, (error, isEqual) => {
           if(isEqual) {
@@ -167,6 +167,8 @@ app.post('/loginTwo', (req, res) => {
             ableSend = true;
           } else {
             console.log('not success login');
+            console.log(password);
+            console.log(hash);
           }
         })
         
