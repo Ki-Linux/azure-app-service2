@@ -4,8 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const mysql = require('mysql');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -120,10 +120,12 @@ app.post('/post/namePost',
   )
 },
 (req, res, next) => {
-  bcrypt.hash([req.body.postPassword], 10, (error, hash) => {
+  const name = req.body.postName;
+  const password = req.body.postPassword;
+  bcrypt.hash(password, 10, (error, hash) => {
     connection.query(
       'INSERT INTO login (name, password) VALUES (?, ?)',
-      [req.body.postName, hash],
+      [name, hash],
       (error, results) => {
         console.log(results);
   
