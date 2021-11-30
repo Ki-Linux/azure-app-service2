@@ -157,16 +157,20 @@ app.post('/loginTwo', (req, res) => {
     [req.body.loginName],
     (error, results) => {
       if(results.length > 0) {
-        //bcrypt.compare([req.body.loginPassword], results[0].password, (error, isEqual) => {
-          //if(isEqual) {
+
+        const password = req.body.loginPassword;
+        const hash = [results[0].password];
+
+        bcrypt.compare(password, hash, (error, isEqual) => {
+          if(isEqual) {
             console.log('succcess yes!');
             ableSend = true;
-          } //else {
-            //console.log('not success login');
-          //}
-        //})
+          } else {
+            console.log('not success login');
+          }
+        })
         
-      //}
+      }
     }
 
   )
