@@ -119,10 +119,10 @@ app.post('/post/namePost',
     }
   )
 },
-(req, res, next) => {
+async (req, res, next) => {
   const name = req.body.postName;
   const password = [req.body.postPassword];
-  bcrypt.hash(password, 10, (error, hash) => {
+  await bcrypt.hash(password, 10, (error, hash) => {
     connection.query(
       'INSERT INTO login (name, password) VALUES (?, ?)',
       [name, hash],
