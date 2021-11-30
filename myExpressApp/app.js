@@ -121,7 +121,7 @@ app.post('/post/namePost',
 },
 (req, res, next) => {
   const name = req.body.postName;
-  const password = req.body.postPassword;
+  const password = [req.body.postPassword];
   bcrypt.hash(password, 10, (error, hash) => {
     connection.query(
       'INSERT INTO login (name, password) VALUES (?, ?)',
@@ -157,16 +157,16 @@ app.post('/loginTwo', (req, res) => {
     [req.body.loginName],
     (error, results) => {
       if(results.length > 0) {
-        bcrypt.compare(req.body.loginPassword, results[0].password, (error, isEqual) => {
-          if(isEqual) {
+        //bcrypt.compare([req.body.loginPassword], results[0].password, (error, isEqual) => {
+          //if(isEqual) {
             console.log('succcess yes!');
             ableSend = true;
-          } else {
-            console.log('not success login');
-          }
-        })
+          } //else {
+            //console.log('not success login');
+          //}
+        //})
         
-      }
+      //}
     }
 
   )
