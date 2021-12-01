@@ -98,6 +98,8 @@ app.post('/post/ad', (req, res) => {
 
 //新規登録
 
+let ableSend = false;
+
 //データベースへ
 let sayCannot = false;
 
@@ -130,7 +132,7 @@ async (req, res, next) => {
       [name, hashedPassword],
       (error, results) => {
         console.log(results);
-
+        ableSend = true;
       }
     );
 
@@ -138,20 +140,22 @@ async (req, res, next) => {
 
 
 //ブラウザへ送る
+
+//  すでに登録の通知
 app.get('/sendTrue', (req, res) => {
   if(sayCannot) {
     console.log('yes can send');
     res.send("このユーザーネームはすでに登録してあります。");
     sayCannot = false;
+    res.end();
   }
 })
-
 
 
 //ログイン
 
 //ログイン審査
-let ableSend = false;
+//let ableSend = false;
 
 app.post('/loginTwo', (req, res) => {
   connection.query(
@@ -187,6 +191,7 @@ app.get('/ableSendYes', (req, res) => {
     console.log('canSendAble');
     res.send(true);
     ableSend = false;
+    res.end();
   }
 })
 
