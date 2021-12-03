@@ -134,7 +134,7 @@ async (req, res, next) => {
       (error, results) => {
         console.log(results);
         ableSend = true;
-        showName = results;
+        showName = name;
       }
     );
 
