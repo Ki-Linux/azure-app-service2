@@ -99,6 +99,7 @@ app.post('/post/ad', (req, res) => {
 //新規登録
 
 let ableSend = false;
+let showName = "";
 
 //データベースへ
 let sayCannot = false;
@@ -133,6 +134,7 @@ async (req, res, next) => {
       (error, results) => {
         console.log(results);
         ableSend = true;
+        showName = results;
       }
     );
 
@@ -193,6 +195,12 @@ app.get('/ableSendYes', (req, res) => {
     ableSend = false;
     res.end();
   }
+})
+
+
+//ログイン成功したら、ユーザーニックネームの表示
+app.get('/getUserNameWithiykrnmltpoebrlmknebwr34t35reefwefWEFYUMm4te', (req, res) => {
+  res.send(showName);
 })
 
  
