@@ -173,6 +173,7 @@ app.post('/loginTwo', (req, res) => {
           if(isEqual) {
             console.log('succcess yes!');
             ableSend = true;
+            showName = req.body.loginName;
           } else {
             console.log('not success login');
 
