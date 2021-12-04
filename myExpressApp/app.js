@@ -95,6 +95,16 @@ app.post('/post/ad', (req, res) => {
   ); 
 });
 
+app.post('/post/ex', (req, res) => {
+  connection.query(
+    'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
+    [[req.body.postUserName],[req.body.postNumber]],
+    (error, results) => {
+      console.log(results);
+      res.redirect('/');
+    }
+  ); 
+});
 
 //新規登録
 
