@@ -61,6 +61,18 @@ app.get('/adAPI', (req, res) => {
     });
 });
 
+app.all('/exAPI', (req, res) => {
+  connection.query(
+    'SELECT totalNumber FROM total WHERE name = ?',
+    [req.body.sendName],
+    (error, results) => {
+      res.send(results);
+      console.log(results);
+    }
+
+  )
+})
+
 //データベースへ
 app.post('/post/b', (req, res) => {
   connection.query(
@@ -149,6 +161,20 @@ async (req, res, next) => {
     );
 
 });
+
+
+app.post('/post/pointPost', (req, res) => {
+
+  const name = req.body.postUserName;
+  connection.query(
+    'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
+    [name, 5],
+    (error, results) => {
+      console.log('u' + results);
+    }
+  )
+
+})
 
 
 //ブラウザへ送る
