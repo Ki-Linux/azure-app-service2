@@ -201,7 +201,7 @@ app.post('/post/pointImgPost', (req, res) => {
   const name = req.body.postUserNameByImg;
   connection.query(
     'INSERT INTO img (name, totalNumber) VALUES (?, ?)',
-    [name, 5],
+    [name, 2],
     (error, results) => {
       console.log('u' + results);
     }
