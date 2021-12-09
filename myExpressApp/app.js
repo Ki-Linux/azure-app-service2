@@ -69,7 +69,17 @@ app.all('/exAPI', (req, res) => {
       res.send(results);
       console.log(results);
     }
+  )
+})
 
+app.all('/imgAPI', (req, res) => {
+  connection.query(
+    'SELECT totalNumber FROM img WHERE name = ?',
+    [req.body.sendImgName],
+    (error, results) => {
+      res.send(results);
+      console.log(results);
+    }
   )
 })
 
@@ -110,6 +120,17 @@ app.post('/post/ad', (req, res) => {
 app.post('/post/ex', (req, res) => {
   connection.query(
     'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
+    [[req.body.postUserName],[req.body.postNumber]],
+    (error, results) => {
+      console.log(results);
+      res.redirect('/');
+    }
+  ); 
+});
+
+app.post('/post/img', (req, res) => {
+  connection.query(
+    'INSERT INTO img (name, totalNumber) VALUES (?, ?)',
     [[req.body.postUserName],[req.body.postNumber]],
     (error, results) => {
       console.log(results);
@@ -162,20 +183,31 @@ async (req, res, next) => {
 
 });
 
-
+//エキストラと画像の平均点の初期設定
 app.post('/post/pointPost', (req, res) => {
 
   const name = req.body.postUserName;
   connection.query(
     'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
-    [name, 5],
+    [name, 0],
+    (error, results) => {
+      console.log('u' + results);
+    }
+  )
+})
+
+app.post('/post/pointImgPost', (req, res) => {
+
+  const name = req.body.postUserNameByImg;
+  connection.query(
+    'INSERT INTO img (name, totalNumber) VALUES (?, ?)',
+    [name, 0],
     (error, results) => {
       console.log('u' + results);
     }
   )
 
 })
-
 
 //ブラウザへ送る
 
