@@ -165,7 +165,7 @@ app.post('/post/namePost',
     }
   )
 },
-async (req, res, next) => {
+(req, res, next) => {
   
   const name = req.body.postName;
   const password = req.body.postPassword;
@@ -217,7 +217,6 @@ app.get('/sendTrue', (req, res) => {
     console.log('yes can send');
     res.send("このユーザーネームはすでに登録してあります。");
     sayCannot = false;
-    res.end();
   }
 })
 
@@ -262,7 +261,6 @@ app.get('/ableSendYes', (req, res) => {
     console.log('canSendAble');
     res.send(true);
     ableSend = false;
-    res.end();
   }
 })
 
