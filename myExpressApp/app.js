@@ -169,7 +169,7 @@ app.post('/post/namePost',
   
   const name = req.body.postName;
   const password = req.body.postPassword;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = bcrypt.hash(password, 10);
 
     connection.query(
       'INSERT INTO login (name, password) VALUES (?, ?)',
