@@ -157,11 +157,12 @@ app.post('/post/namePost',
 
         console.log('judge to say "No its same"');
         sayCannot = true;
-      } else {
+        return;
+      } //else {
 
         console.log('judge its to next');
         next();
-      }
+      //}
     }
   )
 },
