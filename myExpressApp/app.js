@@ -148,7 +148,7 @@ let showName = "";
 let sayCannot = false;
 
 app.all('/post/namePost', 
-(req, res, next) => {
+//(req, res, next) => {
   //connection.query(
     /*'SELECT * FROM login WHERE name = ?',
     [req.body.postName],
@@ -160,12 +160,12 @@ app.all('/post/namePost',
         return;
       }*/ //else {
 
-        console.log('judge its to next');
-        next();
+        //console.log('judge its to next');
+        //next();
       //}
     //}
   //)
-},
+//},
 (req, res, next) => {
   
   const name = req.body.postName;
