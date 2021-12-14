@@ -147,10 +147,10 @@ let showName = "";
 //データベースへ
 let sayCannot = false;
 
-app.all('/post/namePost', 
-//(req, res, next) => {
-  //connection.query(
-    /*'SELECT * FROM login WHERE name = ?',
+app.post('/post/namePost', 
+/*(req, res, next) => {
+  connection.query(
+    'SELECT * FROM login WHERE name = ?',
     [req.body.postName],
     (error, results) => {
       if(results.length > 0) {
@@ -158,14 +158,14 @@ app.all('/post/namePost',
         console.log('judge to say "No its same"');
         sayCannot = true;
         return;
-      }*/ //else {
+      } //else {
 
-        //console.log('judge its to next');
-        //next();
+        console.log('judge its to next');
+        next();
       //}
-    //}
-  //)
-//},
+    }
+  )
+},*/
 (req, res, next) => {
   
   const name = req.body.postName;
@@ -179,6 +179,7 @@ app.all('/post/namePost',
         console.log(results);
         ableSend = true;
         showName = name;
+        res.redirect('/');
       }
     );
 
