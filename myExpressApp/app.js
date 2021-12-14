@@ -149,8 +149,8 @@ let sayCannot = false;
 
 app.post('/post/namePost', 
 (req, res, next) => {
-  connection.query(
-    'SELECT * FROM login WHERE name = ?',
+  //connection.query(
+    /*'SELECT * FROM login WHERE name = ?',
     [req.body.postName],
     (error, results) => {
       if(results.length > 0) {
@@ -158,13 +158,13 @@ app.post('/post/namePost',
         console.log('judge to say "No its same"');
         sayCannot = true;
         return;
-      } //else {
+      }*/ //else {
 
         console.log('judge its to next');
         next();
       //}
-    }
-  )
+    //}
+  //)
 },
 (req, res, next) => {
   
