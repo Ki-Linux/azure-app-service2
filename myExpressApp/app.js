@@ -147,7 +147,7 @@ let showName = "";
 //データベースへ
 let sayCannot = false;
 
-app.post('/post/namePost', 
+app.all('/post/namePost', 
 (req, res, next) => {
   //connection.query(
     /*'SELECT * FROM login WHERE name = ?',
