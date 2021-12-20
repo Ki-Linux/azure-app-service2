@@ -61,27 +61,6 @@ app.get('/adAPI', (req, res) => {
     });
 });
 
-app.all('/exAPI', (req, res) => {
-  connection.query(
-    'SELECT totalNumber FROM total WHERE name = ?',
-    [req.body.sendName],
-    (error, results) => {
-      res.send(results);
-      console.log(results);
-    }
-  )
-})
-
-app.all('/imgAPI', (req, res) => {
-  connection.query(
-    'SELECT totalNumber FROM img WHERE name = ?',
-    [req.body.sendImgName],
-    (error, results) => {
-      res.send(results);
-      console.log(results);
-    }
-  )
-})
 
 //データベースへ
 app.post('/post/b', (req, res) => {
@@ -119,8 +98,8 @@ app.post('/post/ad', (req, res) => {
 
 app.post('/post/ex', (req, res) => {
   connection.query(
-    'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
-    [[req.body.postUserName],[req.body.postNumber]],
+    'INSERT INTO extra (name, extra_quiz) VALUES (?, ?)',
+    [[req.body.postUserName], [req.body.postNumber]],
     (error, results) => {
       console.log(results);
       res.redirect('/');
@@ -130,8 +109,8 @@ app.post('/post/ex', (req, res) => {
 
 app.post('/post/img', (req, res) => {
   connection.query(
-    'INSERT INTO img (name, totalNumber) VALUES (?, ?)',
-    [[req.body.postUserName],[req.body.postNumber]],
+    'INSERT INTO extra (name, img_quiz) VALUES (?, ?)',
+    [[req.body.postUserName], [req.body.postNumber]],
     (error, results) => {
       console.log(results);
       res.redirect('/');
@@ -139,137 +118,87 @@ app.post('/post/img', (req, res) => {
   ); 
 });
 
+
 //新規登録
 
-let ableSend = false;
-let showName = "";
-
 //データベースへ
-let sayCannot = false;
 
-app.post('/post/namePost', 
-/*(req, res, next) => {
+//username password
+app.all('/post/sendUserData2.3', (req, res, next) => {
   connection.query(
     'SELECT * FROM login WHERE name = ?',
-    [req.body.postName],
+    [req.body.user_name],
     (error, results) => {
       if(results.length > 0) {
-
-        console.log('judge to say "No its same"');
-        sayCannot = true;
-        return;
-      } //else {
-
-        console.log('judge its to next');
+        console.log("not")
+        res.send("このユーザーニックネームはすでにあります。");
+      } else {
+        console.log("not same");
         next();
-      //}
+      }
     }
   )
-},*/
+},
 (req, res, next) => {
-  
-  const name = req.body.postName;
-  const password = req.body.postPassword;
-  const hashedPassword = bcrypt.hash(password, 10);
-
+  bcrypt.hash(req.body.user_password, 10, (error, hash) => {
     connection.query(
       'INSERT INTO login (name, password) VALUES (?, ?)',
-      [name, hashedPassword],
+      [[req.body.user_name], hash],
       (error, results) => {
         console.log(results);
-        ableSend = true;
-        showName = name;
-        res.redirect('/');
+        next();
       }
-    );
-
-});
-
-//エキストラと画像の平均点の初期設定
-app.post('/post/pointPost', (req, res) => {
-
-  const name = req.body.postUserName;
+    )
+  })
+},
+(req, res) => {
   connection.query(
-    'INSERT INTO total (name, totalNumber) VALUES (?, ?)',
-    [name, 5],
+    'INSERT INTO extra (name, extra_quiz, img_quiz) VALUES (?, ?, ?)',
+    [[req.body.user_name], 5, 2],
     (error, results) => {
-      console.log('u' + results);
+      console.log(results);
+      res.send("ログイン成功です。");
     }
   )
 })
 
-app.post('/post/pointImgPost', (req, res) => {
 
-  const name = req.body.postUserNameByImg;
+//データベースと一致する名前の表示
+app.all('/select_user_name/isdeihofhwioefwlvasknd', (req, res) => {
   connection.query(
-    'INSERT INTO img (name, totalNumber) VALUES (?, ?)',
-    [name, 2],
+    'SELECT extra_quiz, img_quiz FROM extra WHERE name = ?',
+    [req.body.select_user_name],
     (error, results) => {
-      console.log('u' + results);
+      console.log(results);
+      res.send(results);
     }
   )
-
 })
 
-//ブラウザへ送る
-
-//  すでに登録の通知
-app.get('/sendTrue', (req, res) => {
-  if(sayCannot) {
-    console.log('yes can send');
-    res.send("このユーザーネームはすでに登録してあります。");
-    sayCannot = false;
-  }
-})
-
-
-//ログイン
-
-//ログイン審査
-//let ableSend = false;
-
-app.post('/loginTwo', (req, res) => {
+//loginからのデータで名前とパスワードが一致するかを確かめる
+app.all('/post/login', (req, res) => {
   connection.query(
     'SELECT * FROM login WHERE name = ?',
-    [req.body.loginName],
+    [req.body.post_login_name],
     (error, results) => {
-      if(results.length > 0) {
-
-        const password = req.body.loginPassword;
-        const hash = results[0].password;
-
-        bcrypt.compare(password, hash, (error, isEqual) => {
-          if(isEqual) {
-            console.log('succcess yes!');
-            ableSend = true;
-            showName = req.body.loginName;
+      if(results.length > 0) {//name judge
+        bcrypt.compare(req.body.post_login_password, results[0].password, (error, isEqual) => {
+          if(isEqual) {// password judge
+            console.log(results[0].password);
+            res.send(true);
           } else {
-            console.log('not success login');
-
+            console.log('no');
+            res.send(false);
           }
         })
-        
       }
+      else {
+        console.log('no');
+        res.send(false);
+      }
+      
     }
-
   )
-
-  console.log(req.body.loginName);
-})
-
-
-app.get('/ableSendYes', (req, res) => {
-  if(ableSend) {
-    console.log('canSendAble');
-    res.send(true);
-    ableSend = false;
-  }
-})
-
-
-//ログイン成功したら、ユーザーニックネームの表示
-app.get('/getUserNameWithiykrnmltpoebrlmknebwr34t35reefwefWEFYUMm4te', (req, res) => {
-  res.send(showName);
 })
 
  
