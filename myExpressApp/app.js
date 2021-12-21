@@ -160,20 +160,7 @@ app.all('/post/sendUserData2.3', (req, res, next) => {
       res.send("ログイン成功です。");
     }
   )
-})
-
-
-//データベースと一致する名前の表示
-app.all('/select_user_name/isdeihofhwioefwlvasknd', (req, res) => {
-  connection.query(
-    'SELECT extra_quiz, img_quiz FROM extra WHERE name = ?',
-    [req.body.select_user_name],
-    (error, results) => {
-      console.log(results);
-      res.send(results);
-    }
-  )
-})
+});
 
 //loginからのデータで名前とパスワードが一致するかを確かめる
 app.all('/post/login', (req, res) => {
@@ -199,9 +186,22 @@ app.all('/post/login', (req, res) => {
       
     }
   )
-})
+});
 
+
+//データベースと一致する名前の表示
+app.all('/post/isdeihofhwioefwlvasknd', (req, res) => {
+  connection.query(
+    'SELECT * FROM extra WHERE name = ?',
+    [req.body.select_user_name],
+    (error, results) => {
+      console.log(results);
+      res.send(results);
+    }
+  )
+});
  
+
 //sendgrid 
 app.post('/post/send', (req, res) => {
 
@@ -216,7 +216,7 @@ app.post('/post/send', (req, res) => {
     html: req.body.postText + " " + req.body.postAddress
   }   
   sgMail.send(msg);
-  }); 
+  });
 //本文ここまで
 
 
