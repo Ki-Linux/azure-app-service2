@@ -203,7 +203,7 @@ app.all('/post/isdeihofhwioefwlvasknd', (req, res) => {
  
 
 //sendgrid 
-app.all('/post/send', (req, res) => {
+app.post('/post/send', (req, res) => {
 
   const sgMail = require('@sendgrid/mail');
   sgMail.setApiKey('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');
