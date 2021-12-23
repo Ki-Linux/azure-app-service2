@@ -206,7 +206,7 @@ app.all('/post/isdeihofhwioefwlvasknd', (req, res) => {
 app.post('/post/send', (req, res) => {
 
   const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey('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');
+  sgMail.setApiKey('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');
   
   const msg = {
     to: 'hou007@hkoruy.sakura.ne.jp',
