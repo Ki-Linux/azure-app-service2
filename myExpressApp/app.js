@@ -203,7 +203,7 @@ app.all('/post/isdeihofhwioefwlvasknd', (req, res) => {
  
 
 //sendgrid 
-app.post('/post/send', (req, res) => {
+app.all('/post/send', (req, res) => {
 
   const sgMail = require('@sendgrid/mail');
   sgMail.setApiKey('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');
@@ -216,7 +216,7 @@ app.post('/post/send', (req, res) => {
     html: req.body.postText + " " + req.body.postAddress
   }   
   sgMail.send(msg);
-  });
+});
 //本文ここまで
 
 
