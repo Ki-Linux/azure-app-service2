@@ -154,7 +154,7 @@ app.all('/post/sendUserData2.3', (req, res, next) => {
 (req, res) => {
   connection.query(
     'INSERT INTO extra (name, extra_quiz, img_quiz) VALUES (?, ?, ?)',
-    [[req.body.user_name], 5, 2],
+    [[req.body.user_name], 5, 5],
     (error, results) => {
       console.log(results);
       res.send("ログイン成功です。");
